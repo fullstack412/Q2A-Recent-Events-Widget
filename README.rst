@@ -4,7 +4,7 @@ Question2Answer Recent Events Widget v0.1
 -----------
 Description
 -----------
-This plugin for **Question2Answer** newest events of your q2a forum in a widget.
+This plugin for **Question2Answer** displays the newest events of your q2a forum in a widget.
 
 --------
 Features
