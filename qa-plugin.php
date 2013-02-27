@@ -2,8 +2,8 @@
 /*
 	Plugin Name: Recent Events Widget
 	Plugin Description: Displays the newest events of your q2a forum in a widget
-	Plugin Version: 0.1
-	Plugin Date: 2013-02-26
+	Plugin Version: 0.2
+	Plugin Date: 2013-02-27
 	Plugin Author: echteinfachtv
 	Plugin Author URI: http://www.echteinfach.tv/
 	Plugin License: GPLv3
@@ -141,13 +141,13 @@ function getAllForumEvents($queryRecentEvents, $eventsToShow, $region) {
 			// widget output, e.g. <a href="#" title="Antwort von echteinfachtv">17:23h A: Terme lösen und auskl...</a>
 			$evTime = substr($row['datetime'],11,5) . qa_lang_html('qa_recent_events_widget_lang/hour_indic'); // 17:23h
 			$qTitleShort = substr($qTitle,0,22); // shorten question title to 22 chars
-			$qTitleShort2 = (strlen($qTitle)>60) ? htmlspecialchars( substr($qTitle,0,60) ).'&hellip;' : htmlspecialchars($qTitle); // shorten question title to 60 chars
+			$qTitleShort2 = (strlen($qTitle)>80) ? htmlspecialchars( substr($qTitle,0,60) ).'&hellip;' : htmlspecialchars($qTitle); // shorten question title to 60 chars
 			
 			if ($region=='side') {
 				$listAllEvents .= '<a class="tipsify" href="'.$linkToPost.'" title="'.$eventName.' '.qa_lang_html('qa_recent_events_widget_lang/new_by').' '.$username.': '.htmlspecialchars($qTitle).'">'.$evTime.' '.$eventNameShort.': '.htmlspecialchars($qTitleShort).'&hellip;</a>';
 			}
 			else {
-				$listAllEvents .= '<a class="recEvents_top" href="'.$linkToPost.'" title="'.$eventName.' '.qa_lang_html('qa_recent_events_widget_lang/new_by').' '.$username.': '.htmlspecialchars($qTitle).'">'.$evTime.' '.$eventName.' '.qa_lang_html('qa_recent_events_widget_lang/new_by').' '.$username.': '.$qTitleShort2.'</a>';
+				$listAllEvents .= '<a href="'.$linkToPost.'">'.$evTime.' '.$eventName.' '.qa_lang_html('qa_recent_events_widget_lang/new_by').' '.$username.': '.$qTitleShort2.'</a>';
 			}
 			$countEvents++;
 			if($countEvents>=$maxEventsToShow) {

@@ -57,17 +57,28 @@ class qa_recent_events_widget {
 
 		$recentEvents = '';
 		$recentEvents = getAllForumEvents($queryRecentEvents, $eventsToShow, $region);
-		$themeobject->output('<div class="liveBox-events">' . $recentEvents . '</div>
-			</div> <!-- end liveBox -->');
 		// add fancy tooltip if widget is in sidebar
 		if($region=='side') {
-			$themeobject->output('<script type="text/javascript" src="https://raw.github.com/jaz303/tipsy/master/src/javascripts/jquery.tipsy.js"></script>');
+			$themeobject->output('<div class="liveboxEvents-sidebar">' . $recentEvents . '</div>
+				</div> <!-- end livebox sidebar -->');
+			$themeobject->output('<script type="text/javascript" src="https://raw.github.com/echteinfachtv/qa-recent-events-widget/master/tipsy.min.js"></script>');
 			$themeobject->output('<script type="text/javascript">
 				$(document).ready(function(){ 
-					$(".liveBox-events a.tipsify").tipsy( {gravity: "e", fade: true, offset:5 });
+					$(".liveboxEvents-sidebar a").tipsy( {gravity: "e", fade: true, offset:5 });
 				});
 			</script>');
 		}
+		else {
+			$themeobject->output('<div class="liveboxEvents-top">' . $recentEvents . '</div>
+				</div> <!-- end livebox -->');
+		}
+		// css styling
+		$themeobject->output('<style type="text/css">.liveboxEvents-sidebar
+			.livebox-link {font-size:14px;color:#121212;font-weight:bold;margin-bottom:5px; }
+			.liveboxEvents-sidebar { margin:10px 0 0 5px; } 
+			.liveboxEvents-sidebar a, .liveboxEvents-top a { display:block; color:#253540; text-decoration:none; margin-bottom:5px; font-size:10px; }
+		</style>');
+
 		// credit developer by just a hidden link
 		$themeobject->output('<a style="display:none;" href="http://www.gute-mathe-fragen.de/">Mathe Forum Schule und Studenten</a>');
 	}
