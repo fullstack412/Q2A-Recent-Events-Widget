@@ -155,8 +155,8 @@ function getAllForumEvents($queryRecentEvents, $eventsToShow, $region) {
 			}
 		}
 	}
-	header('Content-Type: text/plain; charset=utf-8'); // utf8_encode
-	return $listAllEvents;
+	// header('Content-Type: text/plain; charset=utf-8');
+	return utf8_encode($listAllEvents);
 } // end function getAllForumEvents()
 		
 		
