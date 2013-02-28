@@ -138,7 +138,7 @@ function getAllForumEvents($queryRecentEvents, $eventsToShow, $region) {
 				continue;
 			}
 			
-			// widget output, e.g. <a href="#" title="Antwort von echteinfachtv">17:23h A: Terme lösen und auskl...</a>
+			// widget output, e.g. <a href="#" title="Antwort von echteinfachtv">17:23h A: Terme lÃ¶sen und auskl...</a>
 			$evTime = substr($row['datetime'],11,5) . qa_lang_html('qa_recent_events_widget_lang/hour_indic'); // 17:23h
 			$qTitleShort = substr($qTitle,0,22); // shorten question title to 22 chars
 			$qTitleShort2 = (strlen($qTitle)>80) ? htmlspecialchars( substr($qTitle,0,60) ).'&hellip;' : htmlspecialchars($qTitle); // shorten question title to 60 chars
@@ -155,6 +155,7 @@ function getAllForumEvents($queryRecentEvents, $eventsToShow, $region) {
 			}
 		}
 	}
+	header('Content-Type: text/plain; charset=utf-8'); // utf8_encode
 	return $listAllEvents;
 } // end function getAllForumEvents()
 		
