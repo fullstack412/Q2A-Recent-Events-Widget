@@ -56,7 +56,7 @@ class qa_recent_events_widget {
 									"); // check with getAllForumEvents() which returns events as links
 
 		$recentEvents = '';
-		$recentEvents = getAllForumEvents($queryRecentEvents, $eventsToShow, $region);
+		$recentEvents = getAllForumEvents($queryRecentEvents, $eventsToShow, $region); // string returned should be UTF8 with special chars such as äöüαβγ etc.
 		// add fancy tooltip if widget is in sidebar
 		if($region=='side') {
 			$themeobject->output('<div class="liveboxEvents-sidebar">' . $recentEvents . '</div>

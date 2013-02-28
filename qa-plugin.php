@@ -2,7 +2,7 @@
 /*
 	Plugin Name: Recent Events Widget
 	Plugin Description: Displays the newest events of your q2a forum in a widget
-	Plugin Version: 0.2
+	Plugin Version: 0.3
 	Plugin Date: 2013-02-27
 	Plugin Author: echteinfachtv
 	Plugin Author URI: http://www.echteinfach.tv/
@@ -107,8 +107,8 @@ function getAllForumEvents($queryRecentEvents, $eventsToShow, $region) {
 				}
 			}
 			
-			$username = (is_null($row['handle'])) ? qa_lang_html('qa_recent_events_widget_lang/anonymous') : htmlspecialchars($row['handle']);
-			$usernameLink = (is_null($row['handle'])) ? qa_lang_html('qa_recent_events_widget_lang/anonymous') : '<a target="_blank" class="qa-user-link" style="font-weight:normal;" href="'.qa_opt('site_url').'user/'.$row['handle'].'">'.htmlspecialchars($row['handle']).'</a>';
+			$username = (is_null($row['handle'])) ? qa_lang_html('qa_recent_events_widget_lang/anonymous') : htmlspecialchars($row['handle'], ENT_QUOTES, 'UTF-8');
+			$usernameLink = (is_null($row['handle'])) ? qa_lang_html('qa_recent_events_widget_lang/anonymous') : '<a target="_blank" class="qa-user-link" style="font-weight:normal;" href="'.qa_opt('site_url').'user/'.$row['handle'].'">'.htmlspecialchars($row['handle'], ENT_QUOTES, 'UTF-8').'</a>';
 			
 			// set event name and css class
 			$eventName = '';
@@ -141,10 +141,9 @@ function getAllForumEvents($queryRecentEvents, $eventsToShow, $region) {
 			// widget output, e.g. <a href="#" title="Antwort von echteinfachtv">17:23h A: Terme lösen und auskl...</a>
 			$evTime = substr($row['datetime'],11,5) . qa_lang_html('qa_recent_events_widget_lang/hour_indic'); // 17:23h
 			$qTitleShort = substr($qTitle,0,22); // shorten question title to 22 chars
-			$qTitleShort2 = (strlen($qTitle)>80) ? htmlspecialchars( substr($qTitle,0,60) ).'&hellip;' : htmlspecialchars($qTitle); // shorten question title to 60 chars
-			
+			$qTitleShort2 = (strlen($qTitle)>80) ? htmlspecialchars( substr($qTitle,0,80), ENT_QUOTES, 'UTF-8') .'&hellip;' : htmlspecialchars($qTitle, ENT_QUOTES, 'UTF-8'); // shorten question title			
 			if ($region=='side') {
-				$listAllEvents .= '<a class="tipsify" href="'.$linkToPost.'" title="'.$eventName.' '.qa_lang_html('qa_recent_events_widget_lang/new_by').' '.$username.': '.htmlspecialchars($qTitle).'">'.$evTime.' '.$eventNameShort.': '.htmlspecialchars($qTitleShort).'&hellip;</a>';
+				$listAllEvents .= '<a class="tipsify" href="'.$linkToPost.'" title="'.$eventName.' '.qa_lang_html('qa_recent_events_widget_lang/new_by').' '.$username.': '.htmlspecialchars($qTitle, ENT_QUOTES, 'UTF-8').'">'.$evTime.' '.$eventNameShort.': '.htmlspecialchars($qTitleShort, ENT_QUOTES, 'UTF-8').'&hellip;</a>';
 			}
 			else {
 				$listAllEvents .= '<a href="'.$linkToPost.'">'.$evTime.' '.$eventName.' '.qa_lang_html('qa_recent_events_widget_lang/new_by').' '.$username.': '.$qTitleShort2.'</a>';
@@ -155,8 +154,8 @@ function getAllForumEvents($queryRecentEvents, $eventsToShow, $region) {
 			}
 		}
 	}
-	// header('Content-Type: text/plain; charset=utf-8');
-	return utf8_encode($listAllEvents);
+
+	return $listAllEvents;
 } // end function getAllForumEvents()
 		
 		
