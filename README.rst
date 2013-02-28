@@ -1,5 +1,5 @@
 ====================================
-Question2Answer Recent Events Widget v0.2
+Question2Answer Recent Events Widget v0.3
 ====================================
 -----------
 Description
