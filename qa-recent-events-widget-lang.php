@@ -5,7 +5,7 @@
 */
 
 	return array(
-		'recent_events' => 'Recent Events', // DE: Aktuelle Events
+		'recent_events' => 'Recent Activity', // DE: Aktuelle Events
 		'question' => 'question', // DE: Frage
 		'new_question' => 'New Question', // DE: Neue Frage
 		'new_question_abbr' => 'Q', // DE: F
@@ -18,6 +18,8 @@
 		'new_by' => 'by', // new x BY member x, DE: von
 		'anonymous' => 'anonymous', // new x BY member x, DE: von
 		'hour_indic' => 'h', // will appear behind time, e.g. 06:45h
+		'new_user_abbr' => 'R',
+		'new_user' => 'New User'
 	);
 	
 
