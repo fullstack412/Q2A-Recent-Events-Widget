@@ -9,7 +9,7 @@ This plugin for **Question2Answer** displays the newest events of your q2a forum
 --------
 Features
 --------
-- considers questions/answers/comments/best-answer-selects as events to show
+- considers questions/answers/comments/best-answer-selects/registed users as events to show
 - needs plugin "Event Logger" enabled, check Admin > Plugins >Event Logger >options (tick "Log events to qa_eventlog database table")
 
 ------------
