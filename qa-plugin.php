@@ -1,13 +1,16 @@
 <?php
+
 /*
 	Plugin Name: Recent Events Widget
+	Plugin URI: https://github.com/echteinfachtv/q2a-recent-events-widget
 	Plugin Description: Displays the newest events of your q2a forum in a widget
 	Plugin Version: 0.3
 	Plugin Date: 2013-02-27
-	Plugin Author: echteinfachtv
-	Plugin Author URI: http://www.echteinfach.tv/
+	Plugin Author: q2apro.com
+	Plugin Author URI: http://www.q2apro.com/
 	Plugin License: GPLv3
 	Plugin Minimum Question2Answer Version: 1.5
+	Plugin Update Check URI: https://raw.github.com/echteinfachtv/q2a-recent-events-widget/master/qa-plugin.php
 
 	This program is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
