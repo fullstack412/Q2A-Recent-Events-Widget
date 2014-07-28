@@ -45,12 +45,12 @@ class qa_recent_events_widget {
 		$themeobject->output('<div class="liveBox"><p class="liveBox-link">'.qa_lang_html('qa_recent_events_widget_lang/recent_events').':</p>');
 		
 		// do only show the following events
-		$eventsToShow = array('q_post', 'a_post', 'c_post', 'a_select');
+		$eventsToShow = array('q_post', 'a_post', 'c_post', 'a_select', 'u_register',);
 		
 		// query last 3 events
 		$queryRecentEvents = qa_db_query_sub("SELECT datetime,ipaddress,handle,event,params 
 									FROM `^eventlog`
-									WHERE `event`='q_post' OR `event`='a_post' OR `event`='c_post' OR `event`='a_select'
+									WHERE `event`='q_post' OR `event`='a_post' OR `event`='c_post' OR `event`='a_select' OR `event`='u_register'
 									ORDER BY datetime DESC
 									LIMIT 20
 									"); // check with getAllForumEvents() which returns events as links

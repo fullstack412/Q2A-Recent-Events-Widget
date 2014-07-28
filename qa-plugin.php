@@ -132,9 +132,16 @@ function getAllForumEvents($queryRecentEvents, $eventsToShow, $region) {
 				$eventName = qa_lang_html('qa_recent_events_widget_lang/new_bestanswer');
 				$eventNameShort = qa_lang_html('qa_recent_events_widget_lang/new_bestanswer_abbr');
 			}
+			else if($row['event']=="u_register") {
+				$eventName = qa_lang_html('qa_recent_events_widget_lang/new_user');
+				$eventNameShort = qa_lang_html('qa_recent_events_widget_lang/new_user_abbr');
+				$linkToPost = $_SERVER['host']."index.php/user/$username";
+				$qTitle = $username." registered.";
+			}
 			
 			// display date as 'before x time'
 			// $timeCode = implode('', qa_when_to_html( strtotime($row['datetime']), qa_opt('show_full_date_days')));
+			
 			
 			// if question title is empty, question got possibly deleted, do not show frontend!
 			if($qTitle=='') {
@@ -145,6 +152,7 @@ function getAllForumEvents($queryRecentEvents, $eventsToShow, $region) {
 			$evTime = substr($row['datetime'],11,5) . qa_lang_html('qa_recent_events_widget_lang/hour_indic'); // 17:23h
 			$qTitleShort = mb_substr($qTitle,0,22,'utf-8'); // shorten question title to 22 chars
 			$qTitleShort2 = (strlen($qTitle)>80) ? htmlspecialchars(mb_substr($qTitle,0,80,'utf-8')) .'&hellip;' : htmlspecialchars($qTitle); // shorten question title			
+			
 			if ($region=='side') {
 				$listAllEvents .= '<a class="tipsify" href="'.$linkToPost.'" title="'.$eventName.' '.qa_lang_html('qa_recent_events_widget_lang/new_by').' '.$username.': '.htmlspecialchars($qTitle).'">'.$evTime.' '.$eventNameShort.': '.htmlspecialchars($qTitleShort).'&hellip;</a>';
 			}
