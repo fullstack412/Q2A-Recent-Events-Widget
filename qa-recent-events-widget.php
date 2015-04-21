@@ -45,7 +45,7 @@ class qa_recent_events_widget {
 		$themeobject->output('<div class="liveBox"><p class="liveBox-link">'.qa_lang_html('qa_recent_events_widget_lang/recent_events').':</p>');
 		
 		// do only show the following events
-		$eventsToShow = array('q_post', 'a_post', 'c_post', 'a_select', 'u_register',);
+		$eventsToShow = array('q_post', 'a_post', 'c_post', 'a_select', 'u_register');
 		
 		// query last 3 events
 		$queryRecentEvents = qa_db_query_sub("SELECT datetime,ipaddress,handle,event,params 
