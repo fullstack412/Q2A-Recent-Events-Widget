@@ -71,14 +71,14 @@ function getAllForumEvents($queryRecentEvents, $eventsToShow, $region) {
 					$getQtitle = qa_db_read_one_value( qa_db_query_sub("SELECT title FROM `^posts` WHERE `postid` = #", $getPostType['parentid']), true );
 					$qTitle = (isset($getQtitle)) ? $getQtitle : "";
 					// get correct public URL
-					$activity_url = qa_path_html(qa_q_request($getPostType[1], $qTitle), null, qa_opt('site_url'), null, null);
+					$activity_url = qa_path_html(qa_q_request($getPostType['parentid'], $qTitle), null, qa_opt('site_url'), null, null);
 					$linkToPost = $activity_url."?show=".$postid."#a".$postid;
 				}
 				else if($postType=="C") {
 					// get question link from answer
 					$getQlink = qa_db_read_one_assoc( qa_db_query_sub("SELECT parentid,type FROM `^posts` WHERE `postid` = #", $getPostType['parentid']) );
 					$linkToQuestion = $getQlink['parentid'];
-					if($getQlink[1]=="A") {
+					if($getQlink['type']=="A") {
 						$getQtitle = qa_db_read_one_value( qa_db_query_sub("SELECT title FROM `^posts` WHERE `postid` = #", $getQlink['parentid']), true );
 						$qTitle = (isset($getQtitle)) ? $getQtitle : "";
 						// get correct public URL
@@ -90,7 +90,7 @@ function getAllForumEvents($queryRecentEvents, $eventsToShow, $region) {
 						$getQtitle = qa_db_read_one_value( qa_db_query_sub("SELECT title FROM `^posts` WHERE `postid` = #", $getPostType['parentid']), true);
 						$qTitle = (isset($getQtitle)) ? $getQtitle : "";
 						// get correct public URL
-						$activity_url = qa_path_html(qa_q_request($getPostType[1], $qTitle), null, qa_opt('site_url'), null, null);
+						$activity_url = qa_path_html(qa_q_request($getPostType['parentid'], $qTitle), null, qa_opt('site_url'), null, null);
 						$linkToPost = $activity_url."?show=".$postid."#c".$postid;
 					}
 				}
@@ -104,7 +104,6 @@ function getAllForumEvents($queryRecentEvents, $eventsToShow, $region) {
 					$getQtitle = qa_db_read_one_value( qa_db_query_sub("SELECT title FROM `^posts` WHERE `postid` = #", $postid), true );
 					$qTitle = (isset($getQtitle)) ? $getQtitle : "";
 					// get correct public URL
-					// $activity_url = qa_path_html(qa_q_request($getPostType[1], $qTitle), null, qa_opt('site_url'), null, null);
 					$activity_url = qa_path_html(qa_q_request($postid, $qTitle), null, qa_opt('site_url'), null, null);
 					$linkToPost = $activity_url;
 				}
