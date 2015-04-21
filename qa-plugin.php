@@ -4,8 +4,8 @@
 	Plugin Name: Recent Events Widget
 	Plugin URI: https://github.com/echteinfachtv/q2a-recent-events-widget
 	Plugin Description: Displays the newest events of your q2a forum in a widget
-	Plugin Version: 0.3
-	Plugin Date: 2013-02-27
+	Plugin Version: 0.4
+	Plugin Date: 2015-04-21
 	Plugin Author: q2apro.com
 	Plugin Author URI: http://www.q2apro.com/
 	Plugin License: GPLv3
@@ -36,7 +36,7 @@ if ( !defined('QA_VERSION') )
 qa_register_plugin_module('widget', 'qa-recent-events-widget.php', 'qa_recent_events_widget', 'Recent Events Widget');
 
 // language file
-qa_register_plugin_phrases('qa-recent-events-widget-lang.php', 'qa_recent_events_widget_lang');
+qa_register_plugin_phrases('qa-recent-events-widget-lang-*.php', 'qa_recent_events_widget_lang');
 
 
 
@@ -65,30 +65,30 @@ function getAllForumEvents($queryRecentEvents, $eventsToShow, $region) {
 			// find out type, if Q set link directly, if A or C do query to get correct link
 			$postid = (isset($data['postid'])) ? $data['postid'] : null;
 			if($postid !== null) {
-				$getPostType = mysql_fetch_array( qa_db_query_sub("SELECT type,parentid FROM `^posts` WHERE `postid` = #", $postid) );
-				$postType = $getPostType[0]; // type, and $getPostType[1] is parentid
+				$getPostType = qa_db_read_one_assoc( qa_db_query_sub("SELECT type,parentid FROM `^posts` WHERE `postid` = #", $postid) );
+				$postType = $getPostType['type']; // type, and $getPostType[1] is parentid
 				if($postType=="A") {
-					$getQtitle = mysql_fetch_array( qa_db_query_sub("SELECT title FROM `^posts` WHERE `postid` = # LIMIT 1", $getPostType[1]) );
-					$qTitle = (isset($getQtitle[0])) ? $getQtitle[0] : "";
+					$getQtitle = qa_db_read_one_value( qa_db_query_sub("SELECT title FROM `^posts` WHERE `postid` = #", $getPostType['parentid']), true );
+					$qTitle = (isset($getQtitle)) ? $getQtitle : "";
 					// get correct public URL
 					$activity_url = qa_path_html(qa_q_request($getPostType[1], $qTitle), null, qa_opt('site_url'), null, null);
 					$linkToPost = $activity_url."?show=".$postid."#a".$postid;
 				}
 				else if($postType=="C") {
 					// get question link from answer
-					$getQlink = mysql_fetch_array( qa_db_query_sub("SELECT parentid,type FROM `^posts` WHERE `postid` = # LIMIT 1", $getPostType[1]) );
-					$linkToQuestion = $getQlink[0];
+					$getQlink = qa_db_read_one_assoc( qa_db_query_sub("SELECT parentid,type FROM `^posts` WHERE `postid` = #", $getPostType['parentid']) );
+					$linkToQuestion = $getQlink['parentid'];
 					if($getQlink[1]=="A") {
-						$getQtitle = mysql_fetch_array( qa_db_query_sub("SELECT title FROM `^posts` WHERE `postid` = # LIMIT 1", $getQlink[0]) );
-						$qTitle = (isset($getQtitle[0])) ? $getQtitle[0] : "";
+						$getQtitle = qa_db_read_one_value( qa_db_query_sub("SELECT title FROM `^posts` WHERE `postid` = #", $getQlink['parentid']), true );
+						$qTitle = (isset($getQtitle)) ? $getQtitle : "";
 						// get correct public URL
 						$activity_url = qa_path_html(qa_q_request($linkToQuestion, $qTitle), null, qa_opt('site_url'), null, null);
 						$linkToPost = $activity_url."?show=".$postid."#c".$postid;
 					}
 					else {
 						// default: comment on question
-						$getQtitle = mysql_fetch_array( qa_db_query_sub("SELECT title FROM `^posts` WHERE `postid` = # LIMIT 1", $getPostType[1]) );
-						$qTitle = (isset($getQtitle[0])) ? $getQtitle[0] : "";
+						$getQtitle = qa_db_read_one_value( qa_db_query_sub("SELECT title FROM `^posts` WHERE `postid` = #", $getPostType['parentid']), true);
+						$qTitle = (isset($getQtitle)) ? $getQtitle : "";
 						// get correct public URL
 						$activity_url = qa_path_html(qa_q_request($getPostType[1], $qTitle), null, qa_opt('site_url'), null, null);
 						$linkToPost = $activity_url."?show=".$postid."#c".$postid;
@@ -101,8 +101,8 @@ function getAllForumEvents($queryRecentEvents, $eventsToShow, $region) {
 				else {
 					// question has correct postid to link
 					// $questionTitle = (isset($data['title'])) ? $data['title'] : "";
-					$getQtitle = mysql_fetch_array( qa_db_query_sub("SELECT title FROM `^posts` WHERE `postid` = # LIMIT 1", $postid) );
-					$qTitle = (isset($getQtitle[0])) ? $getQtitle[0] : "";
+					$getQtitle = qa_db_read_one_value( qa_db_query_sub("SELECT title FROM `^posts` WHERE `postid` = #", $postid), true );
+					$qTitle = (isset($getQtitle)) ? $getQtitle : "";
 					// get correct public URL
 					// $activity_url = qa_path_html(qa_q_request($getPostType[1], $qTitle), null, qa_opt('site_url'), null, null);
 					$activity_url = qa_path_html(qa_q_request($postid, $qTitle), null, qa_opt('site_url'), null, null);
@@ -142,7 +142,6 @@ function getAllForumEvents($queryRecentEvents, $eventsToShow, $region) {
 			// display date as 'before x time'
 			// $timeCode = implode('', qa_when_to_html( strtotime($row['datetime']), qa_opt('show_full_date_days')));
 			
-			
 			// if question title is empty, question got possibly deleted, do not show frontend!
 			if($qTitle=='') {
 				continue;
@@ -152,7 +151,6 @@ function getAllForumEvents($queryRecentEvents, $eventsToShow, $region) {
 			$evTime = substr($row['datetime'],11,5) . qa_lang_html('qa_recent_events_widget_lang/hour_indic'); // 17:23h
 			$qTitleShort = mb_substr($qTitle,0,22,'utf-8'); // shorten question title to 22 chars
 			$qTitleShort2 = (strlen($qTitle)>80) ? htmlspecialchars(mb_substr($qTitle,0,80,'utf-8')) .'&hellip;' : htmlspecialchars($qTitle); // shorten question title			
-			
 			if ($region=='side') {
 				$listAllEvents .= '<a class="tipsify" href="'.$linkToPost.'" title="'.$eventName.' '.qa_lang_html('qa_recent_events_widget_lang/new_by').' '.$username.': '.htmlspecialchars($qTitle).'">'.$evTime.' '.$eventNameShort.': '.htmlspecialchars($qTitleShort).'&hellip;</a>';
 			}
