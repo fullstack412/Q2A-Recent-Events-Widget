@@ -38,13 +38,15 @@ qa_register_plugin_module('widget', 'qa-recent-events-widget.php', 'qa_recent_ev
 // language file
 qa_register_plugin_phrases('qa-recent-events-widget-lang-*.php', 'qa_recent_events_widget_lang');
 
+// setting
+qa_register_plugin_module('module', 'q2apro-recent-events-admin.php', 'q2apro_recent_events', 'q2apro Recent Event');
 
 
 
 // custom function to get all events and new events
 function getAllForumEvents($queryRecentEvents, $eventsToShow, $region) {
 
-	$maxEventsToShow = 5;
+	$maxEventsToShow = (int)(qa_opt('q2apro_recent_events_counts'));
 	$listAllEvents = '';
 	$countEvents = 0;
 
