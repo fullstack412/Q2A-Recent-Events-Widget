@@ -11,7 +11,9 @@
 		function option_default($option) {
 			switch($option) {
 				case 'q2apro_recent_events_counts':
-					return 5; // true
+					return 5; 
+				case 'q2apro_recent_events_time_format':
+					return '0'; 
 				default:
 					return null;
 			}
@@ -26,6 +28,7 @@
 			$ok = null;
 			if (qa_clicked('q2apro_recent_events_save')) {
 				qa_opt('q2apro_recent_events_counts', (int)qa_post_text('q2apro_recent_events_counts'));
+				qa_opt('q2apro_recent_events_time_format', qa_post_text('q2apro_recent_events_time_format'));
 				$ok = qa_lang('admin/options_saved');
 			}
 			
@@ -37,6 +40,15 @@
 				'label' => 'count', 
 				'tags' => 'name="q2apro_recent_events_counts"',
 				'value' => qa_opt('q2apro_recent_events_counts'),
+			);
+
+			$time_format_options = array('absolute', 'relative');
+			$fields[] = array(
+				'type' => 'select',
+				'label' => 'time format', 
+				'tags' => 'name="q2apro_recent_events_time_format"',
+				'value' => $time_format_options[qa_opt('q2apro_recent_events_time_format')],
+				'options' => $time_format_options,
 			);
 			
 			return array(     

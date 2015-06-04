@@ -139,9 +139,26 @@ function getAllForumEvents($queryRecentEvents, $eventsToShow, $region) {
 				$linkToPost = $_SERVER['host']."index.php/user/$username";
 				$qTitle = $username." registered.";
 			}
-			
-			// display date as 'before x time'
-			// $timeCode = implode('', qa_when_to_html( strtotime($row['datetime']), qa_opt('show_full_date_days')));
+
+			$evTime = '';
+			// absolute time
+			if(qa_opt('q2apro_recent_events_time_format') === '0') {
+				$evTime = substr($row['datetime'],11,5) . qa_lang_html('qa_recent_events_widget_lang/hour_indic'); // 17:23h
+				// relative time
+			} else {
+				// display date as 'before x time'
+				$diff = time() - strtotime($row['datetime']);
+				if($diff<60){
+					$evTime = $diff . 's ago';
+				}else if($diff < 60*60){
+					$evTime = (int)($diff/60)  . 'm ago';
+				}else if($diff < 60*60*24){
+					$evTime = (int)($diff/(60*60))  . 'h ago';
+				}else{
+					$evTime = (int)($diff/(60*60*24))  . 'd ago';
+				}
+
+			}
 			
 			// if question title is empty, question got possibly deleted, do not show frontend!
 			if($qTitle=='') {
@@ -149,7 +166,6 @@ function getAllForumEvents($queryRecentEvents, $eventsToShow, $region) {
 			}
 			
 			// widget output, e.g. <a href="#" title="Antwort von echteinfachtv">17:23h A: Terme lösen und auskl...</a>
-			$evTime = substr($row['datetime'],11,5) . qa_lang_html('qa_recent_events_widget_lang/hour_indic'); // 17:23h
 			$qTitleShort = mb_substr($qTitle,0,22,'utf-8'); // shorten question title to 22 chars
 			$qTitleShort2 = (strlen($qTitle)>80) ? htmlspecialchars(mb_substr($qTitle,0,80,'utf-8')) .'&hellip;' : htmlspecialchars($qTitle); // shorten question title			
 			if ($region=='side') {
