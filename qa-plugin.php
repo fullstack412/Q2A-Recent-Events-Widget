@@ -149,15 +149,15 @@ function getAllForumEvents($queryRecentEvents, $eventsToShow, $region) {
 				// display date as 'before x time'
 				$diff = time() - strtotime($row['datetime']);
 				if($diff<60){
-					$evTime = $diff . 's ago';
+					$evTime = $diff . 's ';
 				}else if($diff < 60*60){
-					$evTime = (int)($diff/60)  . 'm ago';
+					$evTime = (int)($diff/60)  . 'm ';
 				}else if($diff < 60*60*24){
-					$evTime = (int)($diff/(60*60))  . 'h ago';
+					$evTime = (int)($diff/(60*60))  . 'h ';
 				}else{
-					$evTime = (int)($diff/(60*60*24))  . 'd ago';
+					$evTime = (int)($diff/(60*60*24))  . 'd ';
 				}
-
+				$evTime .= qa_lang_html('qa_recent_events_widget_lang/ago');
 			}
 			
 			// if question title is empty, question got possibly deleted, do not show frontend!

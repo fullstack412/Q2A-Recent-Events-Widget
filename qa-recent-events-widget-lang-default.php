@@ -19,7 +19,12 @@
 		'anonymous' => 'anonymous', // new x BY member x
 		'hour_indic' => 'h', // will appear behind time, e.g. 06:45h
 		'new_user_abbr' => 'R',
-		'new_user' => 'New User'
+		'new_user' => 'New User',
+		'ago' => 'ago', 
+
+		// for setting
+		'admin_count' => 'count', 
+		'admin_time_format' => 'time format', 
 	);
 	
 

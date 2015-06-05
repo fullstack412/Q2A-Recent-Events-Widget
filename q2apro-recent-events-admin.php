@@ -37,7 +37,7 @@
 			
 			$fields[] = array(
 				'type' => 'number',
-				'label' => 'count', 
+				'label' => qa_lang_html('qa_recent_events_widget_lang/admin_count'),
 				'tags' => 'name="q2apro_recent_events_counts"',
 				'value' => qa_opt('q2apro_recent_events_counts'),
 			);
@@ -45,7 +45,7 @@
 			$time_format_options = array('absolute', 'relative');
 			$fields[] = array(
 				'type' => 'select',
-				'label' => 'time format', 
+				'label' => qa_lang_html('qa_recent_events_widget_lang/admin_time_format'),
 				'tags' => 'name="q2apro_recent_events_time_format"',
 				'value' => $time_format_options[qa_opt('q2apro_recent_events_time_format')],
 				'options' => $time_format_options,
