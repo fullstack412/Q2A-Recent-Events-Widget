@@ -1,14 +1,17 @@
 <?php
 /*
-	Plugin Name: Remind Users after Registration
-	Plugin URI: http://www.q2apro.com/plugins/remind-users
+	Question2Answer Plugin: Recent Events Widget
+	Author: http://www.q2apro.com/
 */
-	class q2apro_recent_events{
-		function init_queries($tableslc) {
+	class q2apro_recent_events
+	{
+		function init_queries($tableslc)
+		{
 			return null;
 		}
 		// option's value is requested but the option has not yet been set
-		function option_default($option) {
+		function option_default($option)
+		{
 			switch($option) {
 				case 'q2apro_recent_events_counts':
 					return 5; 
@@ -19,14 +22,17 @@
 			}
 		}
 			
-		function allow_template($template) {
+		function allow_template($template)
+		{
 			return ($template!='admin');
 		}       
 			
-		function admin_form(&$qa_content){                       
+		function admin_form(&$qa_content)
+		{
 			// process the admin form if admin hit Save-Changes-button
 			$ok = null;
-			if (qa_clicked('q2apro_recent_events_save')) {
+			if(qa_clicked('q2apro_recent_events_save'))
+			{
 				qa_opt('q2apro_recent_events_counts', (int)qa_post_text('q2apro_recent_events_counts'));
 				qa_opt('q2apro_recent_events_time_format', qa_post_text('q2apro_recent_events_time_format'));
 				$ok = qa_lang('admin/options_saved');
@@ -61,5 +67,5 @@
 					),
 				),
 			);
-		}
-	}
+		} // end admin_form
+	} // end class

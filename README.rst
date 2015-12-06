@@ -24,8 +24,8 @@ Installation
 #. Then go to Admin >Layout >Available widgets, and add the widget "Recent Events Widget" where you want it to appear
 
 .. _Question2Answer: http://www.question2answer.org/install.php
-.. _github: https://www.github.com/echteinfachtv/q2a-revent-events-widget/
-.. _project page: https://github.com/echteinfachtv/q2a-revent-events-widget/
+.. _github: https://github.com/q2apro/q2apro-recent-events-widget
+.. _project page: https://github.com/q2apro/q2apro-recent-events-widget
 
 ----------
 Disclaimer

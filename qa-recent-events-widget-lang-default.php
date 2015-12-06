@@ -1,7 +1,7 @@
 <?php
 /*
 	Question2Answer Plugin: Recent Events Widget
-	License: http://www.gnu.org/licenses/gpl.html
+	Author: http://www.q2apro.com/
 */
 
 	return array(
@@ -20,11 +20,12 @@
 		'hour_indic' => 'h', // will appear behind time, e.g. 06:45h
 		'new_user_abbr' => 'R',
 		'new_user' => 'New User',
-		'ago' => 'ago', 
+		'no_events' => '- no recent events -',
+		'ago' => 'ago',
 
-		// for setting
-		'admin_count' => 'count', 
-		'admin_time_format' => 'time format', 
+		// for admin settings
+		'admin_count' => 'Events to show', 
+		'admin_time_format' => 'Time format', 
 	);
 	
 
